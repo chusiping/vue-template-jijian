@@ -12,7 +12,7 @@ const store = new Vuex.Store({
                 name: 'home', // 要跳转的路由名称 不是路径
                 size: 18, // icon大小
                 type: 'md-home', // icon类型
-                text: '主页', // 文本内容
+                text: '主页22', // 文本内容
             },
             {
                 name: 'other', // 要跳转的路由名称 不是路径
@@ -22,10 +22,10 @@ const store = new Vuex.Store({
             },
             {
                 size: 18, // icon大小
-                type: 'md-arrow-forward', // icon类型
+                type: 'md-arrow-forward',
                 text: '外链',
                 url: 'https://www.baidu.com',
-                isExternal: true, // 外链 跳到一个外部的 URL 页面
+                isExternal: true,
             },
             {
                 text: '二级菜单',

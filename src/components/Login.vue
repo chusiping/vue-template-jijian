@@ -1,7 +1,7 @@
 <template>
     <div class="login-vue" :style="bg">
         <div class="container">
-            <p class="title">WELCOME</p>
+            <p class="title">15home后台登录</p>
             <div class="input-c">
                 <Input prefix="ios-contact" v-model="account" placeholder="用户名" clearable @on-blur="verifyAccount" />
                 <p class="error">{{accountError}}</p>

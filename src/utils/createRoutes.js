@@ -5,11 +5,12 @@ export default function createRoutes(data) {
     const result = []
     const children = []
 
-    result.push({
+    let routeItem = {
         path: '/',
         component: () => import('../components/Index.vue'),
         children,
-    })
+    }
+    result.push(routeItem)
 
     data.forEach(item => {
         generateRoutes(children, item)

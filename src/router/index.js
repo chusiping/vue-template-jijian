@@ -7,7 +7,7 @@ const commonRoutes = [
     {
         path: '/login',
         name: 'login',
-        meta: { title: '登录' },
+        meta: { title: '登22录' },
         component: () => import('../components/Login.vue'),
     },
     {
@@ -19,7 +19,7 @@ const commonRoutes = [
     {
         path: '/404',
         name: '404',
-        meta: { title: '404' },
+        meta: { title: '404-15home' },
         component: () => import('../components/404.vue'),
     },
     { path: '/', redirect: '/home' },
@@ -60,14 +60,12 @@ export const asyncRoutes = {
 }
 
 const createRouter = () => new Router({
+    mode: 'history',
     routes: commonRoutes,
 })
-
 const router = createRouter()
-
 export function resetRouter() {
     const newRouter = createRouter()
     router.matcher = newRouter.matcher
 }
-
 export default router

@@ -4,8 +4,7 @@
         <aside :class="asideClassName">
             <!-- logo -->
             <div class="logo-c">
-                <img src="../assets/imgs/logo.png" alt="logo" class="logo">
-                <span v-show="isShowAsideTitle">后台管理系统</span>
+                <span v-show="isShowAsideTitle">15home后台管理</span>
             </div>
             <!-- 菜单栏 -->
             <Menu class="menu" ref="asideMenu" theme="dark" width="100%" @on-select="selectMenuCallback"
@@ -380,7 +379,7 @@ export default {
 
             setTimeout(() => {
                 this.asideClassName = ''
-                this.main.style.marginLeft = '90px'
+                this.main.style.marginLeft = '10px' /* edit by jarr 隐藏左菜单栏 */
             }, 0)
         },
         // 展开
@@ -524,7 +523,7 @@ aside {
     position: fixed;
     top: 0;
     left: 0;
-    width: 90px;
+    width: 1px;
     background: #20222A;
     height: 100%;
     transition: width .3s;

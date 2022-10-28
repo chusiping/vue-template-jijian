@@ -1,8 +1,8 @@
 <template>
     <div>
         <img :src="img">
-        <p>未到找指定页面</p>
-        <Button class="back" @click="back">返回页面</Button>
+        <p>未到22找指定页面</p>
+        <Button class="back" @click="back">返回22页面</Button>
     </div>
 </template>
 
