@@ -7,7 +7,7 @@ const commonRoutes = [
     {
         path: '/login',
         name: 'login',
-        meta: { title: '登22录' },
+        meta: { title: '登录' },
         component: () => import('../components/Login.vue'),
     },
     {
@@ -19,7 +19,7 @@ const commonRoutes = [
     {
         path: '/404',
         name: '404',
-        meta: { title: '404-15home' },
+        meta: { title: '404' },
         component: () => import('../components/404.vue'),
     },
     { path: '/', redirect: '/home' },

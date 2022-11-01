@@ -7,7 +7,7 @@ export default function createRoutes(data) {
 
     let routeItem = {
         path: '/',
-        component: () => import('../components/Index.vue'),
+        component: () => import('../components/IndexTest.vue'),
         children,
     }
     result.push(routeItem)
