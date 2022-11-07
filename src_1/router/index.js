@@ -3,12 +3,25 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-const commonRoutes = [
+// 1 固定路由,写死就好
+const Routes固定路由 = [
     {
         path: '/login',
         name: 'login',
         meta: { title: '登录' },
         component: () => import('../components/Login.vue'),
+    },
+    {
+        path: '/AutoFormOilCard',
+        name: 'AutoFormOilCard',
+        meta: { title: '加油登记' },
+        component: () => import('../views/AutoFormOilCard.vue'),
+    },
+    {
+        path: '/AutoFormWXMsg',
+        name: 'AutoFormWXMsg',
+        meta: { title: '微信测试' },
+        component: () => import('../views/AutoFormWXMsg.vue'),
     },
     {
         path: '/other', // 点击侧边栏跳到一个单独的路由页面，需要定义，层级和其他顶级路由一样
@@ -25,13 +38,13 @@ const commonRoutes = [
     { path: '/', redirect: '/home' },
 ]
 
-// 本地所有的页面 需要配合后台返回的数据生成页面
-export const asyncRoutes = {
-    home: {
-        path: 'home',
-        name: 'home',
+// 2 动态路由,本地所有的页面 需要配合后台返回的数据生成页面
+export const Routes权限路由 = {
+    AutoForm_wxMsg: {
+        path: '/AutoFormWXMsg',
+        name: 'AutoFormWXMsg',
         meta: { title: '主页' },
-        component: () => import('../views/Home.vue'),
+        component: () => import('../views/AutoFormWXMsg.vue'),
     },
     t1: {
         path: 't1',
@@ -59,14 +72,14 @@ export const asyncRoutes = {
     },
 }
 
-const createRouter = () => new Router({
-    routes: commonRoutes,
+const Router初始路由 = () => new Router({
+    mode: 'history',
+    routes: Routes固定路由,
 })
-
-const router = createRouter()
+const router = Router初始路由()
 
 export function resetRouter() {
-    const newRouter = createRouter()
+    const newRouter = Router初始路由()
     router.matcher = newRouter.matcher
 }
 

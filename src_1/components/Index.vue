@@ -11,19 +11,18 @@
                 <Submenu name="1">
                     <template #title>
                         <Icon type="ios-paper" />
-                        内容管理
+                        Form-making示例页
                     </template>
-                    <MenuItem name="1-1" to="/home">home</MenuItem>
-                    <MenuItem name="1-2" to="/t1">t1</MenuItem>
-                    <MenuItem name="1-3">举报管理</MenuItem>
+                    <MenuItem name="1-1" to="/AutoFormWXMsg">home</MenuItem>
                 </Submenu>
                 <Submenu name="2">
                     <template #title>
                         <Icon type="ios-people" />
                         用户管理
                     </template>
-                    <MenuItem name="2-1">新增用户</MenuItem>
-                    <MenuItem name="2-2">活跃用户</MenuItem>
+                    <MenuItem name="2-1" to="/home">home</MenuItem>
+                    <MenuItem name="2-2" to="/t1">t1</MenuItem>
+                    <MenuItem name="2-3">举报管理</MenuItem>
                 </Submenu>
                 <Submenu name="3">
                     <template #title>
