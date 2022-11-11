@@ -12,20 +12,15 @@ const store = new Vuex.Store({
                 name: 'home', // 要跳转的路由名称 不是路径
                 size: 18, // icon大小
                 type: 'md-home', // icon类型
-                text: '主页', // 文本内容
+                text: '主页1', // 文本内容
+                // url: 'https://www.baidu.com',
+                // isExternal: true, // 外链 跳到一个外部的 URL 页面
             },
             {
                 name: 'other', // 要跳转的路由名称 不是路径
                 size: 18, // icon大小
                 type: 'ios-egg-outline', // icon类型
                 text: '单独的路由', // 点击侧边栏跳到一个单独的路由页面，需要提前在 router.js 定义
-            },
-            {
-                size: 18, // icon大小
-                type: 'md-arrow-forward', // icon类型
-                text: '外链',
-                url: 'https://www.baidu.com',
-                isExternal: true, // 外链 跳到一个外部的 URL 页面
             },
             {
                 text: '二级菜单',
@@ -50,9 +45,9 @@ const store = new Vuex.Store({
                         type: 'ios-paper',
                         children: [
                             {
-                                type: 'ios-notifications-outline',
-                                name: 'msg',
-                                text: '查看消息',
+                                type: 'ios-egg-outline', // icon类型
+                                name: 'other', // 要跳转的路由名称 不是路径
+                                text: '单独的路由', // 点击侧边栏跳到一个单独的路由页面，需要提前在 router.js 定义
                             },
                             {
                                 type: 'md-lock',

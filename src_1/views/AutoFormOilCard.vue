@@ -1,5 +1,3 @@
-<!-- eslint-disable max-len -->
-<!-- eslint-disable camelcase -->
 <template>
   <div>
          <fm-generate-form

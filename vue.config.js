@@ -2,7 +2,7 @@ module.exports = {
     devServer: {
         proxy: {
             '/api': {
-                target: 'http://xxxx/device/', // 对应自己的接口
+                target: 'http://win7.qy/', // 对应自己的接口
                 changeOrigin: true,
                 ws: true,
                 pathRewrite: {
@@ -13,7 +13,7 @@ module.exports = {
     },
     pages: {
         index: {
-            entry: 'src/main.js',
+            entry: 'src_2/main.js',
             // entry: 'src-1 第一次在VUE中使用Axios/main.js',
             // entry: 'src-2 axios获取数组数据并渲染/main.js',
             // entry: 'src-3 分别用ge和post方法获取Token/main.js',

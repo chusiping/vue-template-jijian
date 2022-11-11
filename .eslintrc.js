@@ -8,6 +8,7 @@ module.exports = {
         '@vue/airbnb',
     ],
     rules: {
+        camelcase: 'off',
         'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
         'array-element-newline': ['error', 'consistent'],
@@ -16,7 +17,7 @@ module.exports = {
         'comma-dangle': ['error', 'always-multiline'],
         'semi': ['error', 'never'],
         'object-curly-spacing': ['error', 'always'],
-        'max-len': ['error', 140],
+        'max-len': ['error', 999],
         'no-new': 'off',
         'linebreak-style': 'off',
         'import/extensions': 'off',

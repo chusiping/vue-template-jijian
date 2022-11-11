@@ -1,0 +1,96 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>vue模板演示</title>
+<script type="text/javascript" src="https://unpkg.com/vue@2.6.14/dist/vue.js"></script>
+<script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/element-ui/lib/index.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<base target="_blank"/>
+</head>
+<body>
+<div id="app">  
+    <zj1></zj1>
+    <zj2></zj2>
+</div>
+<script>
+
+
+
+Vue.component('zj1', {
+  template: '<h1>自定义组件1</h1>'
+})
+Vue.component('zj2', {
+  template: '<h1>书记2</h1>'
+})
+
+var vm = new Vue({
+  el: '#app',
+  data: {  
+    items: [
+      {
+          id: 1,
+          name: "可乐",
+          itemse: [{ id: 4, text: "冷冻可乐" }, { id: 5, text: "香草可乐" }]
+      },
+
+      {
+          id: 2,
+          name: "雪碧",
+          itemse: [{ id: 6, text: "冷冻雪碧" }, { id: 7, text: "青柠雪碧" }]
+      },
+      {
+        id: 3,
+        name: "橙子",
+        itemse: [{ id:8, text: "冷冻橙子" }, { id: 9, text: "新鲜橙子" }]
+      }
+    ],
+    msg:'',
+    age:0,
+    checked : false,
+    checkedNames: [],
+    counter:1,
+    web:"测试网站",
+    sites: [
+      { name: 'Runoob' },
+      { name: 'Google' },
+      { name: 'Taobao' }
+    ],
+    moban:"<h1>菜鸟教程</h1>",
+    seen: true,
+    seen2: false,
+    url: 'http://www.baidu.com',
+    mod: '双向绑定',
+    type: 'C',
+    object: {
+      name: '菜鸟教程',
+      url: 'http://www.runoob.com',
+      slogan: '学的不仅是技术，更是梦想！'
+    },
+    greet_name : "I'm greet!"
+  },
+  methods: {
+    reve: function () {
+      this.mod = this.mod.split('').reverse().join('')
+    },
+    greet: function (event) {
+      // `this` 在方法里指当前 Vue 实例
+      alert('Hello ' + this.greet_name + '!')
+      // `event` 是原生 DOM 事件
+      if (event) {
+          alert(event.target.tagName)
+      }
+    },
+    say: function (message) {
+      alert(message)
+    }
+  }
+
+})
+vm.$watch('counter', function(nval, oval) {
+    alert('计数器值的变化 :' + oval + ' 变为 ' + nval + '!');
+});
+
+</script>
+</body>
+</html>
