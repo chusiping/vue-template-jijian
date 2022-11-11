@@ -1,11 +1,7 @@
 <template>
-<div style="width:240px;">
+<div>
     <el-table :header-cell-style="handerMethod" :data="baojia" :show-header="true" :row-style="{height:'20px',border:'3px solid '}" :cell-style="{padding:'0px'}" style="font-size: 11px;font-color:black;">
-        <el-table-column align="center" :label="bk">
-            <template scope="scope">
-                <span v-if="scope.row.upgrade_resule=== 1">升级成功</span>
-                <span v-else style="color: red">升级失败</span>
-            </template>
+        <el-table-column align="center" :label="newBkName">
             <el-table-column prop="[1]"></el-table-column>
             <el-table-column prop="[2]"></el-table-column>
             <el-table-column prop="[4]"></el-table-column>
@@ -24,6 +20,12 @@ export default {
             baojia: [],
             bkname: null,
         }
+    },
+    computed: {
+        newBkName() {
+            // `this` 指向 vm 实例
+            return this.$props.bk.replace('bkzxg_', '')
+        },
     },
     mounted() {
         this.getUserData()
@@ -74,15 +76,20 @@ export default {
 .el-table thead.is-group th.el-table__cell {
     background: #F5F7FA;
 
-     /* border: 2px solid; */
+    /* border: 2px solid; */
     padding: 0px;
     color: #000;
 }
 
+.el-table .cell {
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+}
+
 .el-table .el-table__body tr:hover td {
     color: red;
-    border: #000;
 }
+
 .el-table .el-table__body td {
     color: #000;
 }
