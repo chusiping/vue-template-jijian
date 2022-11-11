@@ -1,18 +1,20 @@
 <template>
-<div style="font-size:22px;width:220px;">
-    <el-table :data="baojia">
+<div style="width:240px;">
+    <el-table :header-cell-style="handerMethod" :data="baojia" :show-header="true" :row-style="{height:'20px',border:'3px solid '}" :cell-style="{padding:'0px'}" style="font-size: 11px;font-color:black;">
         <el-table-column align="center" :label="bk">
+            <template scope="scope">
+                <span v-if="scope.row.upgrade_resule=== 1">升级成功</span>
+                <span v-else style="color: red">升级失败</span>
+            </template>
             <el-table-column prop="[1]"></el-table-column>
             <el-table-column prop="[2]"></el-table-column>
             <el-table-column prop="[4]"></el-table-column>
         </el-table-column>
     </el-table>
 </div>
-
 </template>
 
 <script>
-import { fet } from '@/api'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import qs from 'qs'
 
@@ -27,14 +29,18 @@ export default {
         this.getUserData()
     },
     methods: {
+        handerMethod({ rowIndex }) {
+            if (rowIndex === 1) {
+                // 这里为了是将第二列的隐藏表头，就形成了合并表头的效果
+                return { display: 'none' }
+            }
+        },
         getUserData() {
             this.bkname = this.$props.bk == undefined ? 'bkzxg_ETF' : this.$props.bk
             // console.log('@this.bkname=', this.bkname)
             let url = 'http://win7.qy/vhost/custom/api_stock.php?fcname=get_bk2&code=' + this.bkname
             this.$axios.get(url).then(res => {
                 let canshu = this.code2Sina(res.data[0])
-                console.log('@', canshu)
-                let 测试数据 = { P_code: 'cn_515030-ETF-,cn_512760-ETF-,cn_512880-ETF-,cn_512800-ETF-,cn_512400-ETF-,cn_512660-ETF-,cn_512720-ETF-,cn_512690-ETF-,cn_515000-ETF-,cn_515210-ETF-,cn_510800-ETF-,cn_515710-ETF-,cn_515650-ETF-,cn_510150-ETF-,cn_516550-ETF-,cn_516760-ETF-' }
                 let postData_bak = { P_code: canshu }
                 this.getPrice(postData_bak)
             })
@@ -57,9 +63,27 @@ export default {
     props: ['bk'],
 }
 </script>
+
 <style>
-.el-table th>.cell{
-    white-space: pre-line;
-    white-space: pre-wrap;
+.el-table__body-wrapper::-webkit-scrollbar {
+    /*width: 0;宽度为0隐藏 滚动条去除 */
+    width: 0px;
+    display: none;
+}
+
+.el-table thead.is-group th.el-table__cell {
+    background: #F5F7FA;
+
+     /* border: 2px solid; */
+    padding: 0px;
+    color: #000;
+}
+
+.el-table .el-table__body tr:hover td {
+    color: red;
+    border: #000;
+}
+.el-table .el-table__body td {
+    color: #000;
 }
 </style>
