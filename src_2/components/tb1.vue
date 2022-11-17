@@ -1,13 +1,25 @@
 <template>
 <div>
     <table class="tb">
-        <tr><td colspan="4">{{newBkName}}</td></tr>
+        <tr>
+            <td colspan="5">{{newBkName}}</td>
+        </tr>
         <tr v-for="(tr,index) in baojia" :key="index">
             <td>
                 <a :href="newgpkName(tr[0])" target="_blank">{{tr[1]}}</a>
             </td>
+                <td>
+                <el-popover placement="right" trigger="hover">
+                    <el-button size="mini" @click="lookup(tr[1])" type="info" icon="el-icon-message"></el-button>
+                    <el-button size="mini" @click="delcode(tr[0],bkname)" type="danger" icon="el-icon-delete"></el-button>
+                    <el-button size="mini" @click="viewHistory" type="danger" icon="el-icon-share"></el-button>
+                    <el-button slot="reference" size="mini" type="info" icon="el-icon-d-arrow-right"></el-button>
+                </el-popover>
+            </td>
             <td>{{setclomValue(2,tr[2])}}</td>
-            <td style="width: 4em;">  <el-progress :color="customColor" :text-inside="true" :stroke-width="8" :percentage="setclomValue(4,tr)"></el-progress></td>
+            <td style="width: 4em;">
+                <el-progress :color="setcolor(tr[3]) " :text-inside="true" :stroke-width="10" :percentage="setclomValue(4,tr)"></el-progress>
+            </td>
             <td>{{setclomValue(3,tr[3])}}</td>
         </tr>
     </table>
@@ -24,7 +36,6 @@ export default {
             baojia: [],
             bkname: null,
             persent: 20,
-            customColor: '#f50e63',
         }
     },
     computed: {
@@ -41,6 +52,42 @@ export default {
         }, 5000)
     },
     methods: {
+        viewHistory() {
+            // 查看过往记录
+            console.log('▶过往',)
+        },
+        lookup(cname) {
+            // 弹出新的网页搜索
+            let mycars = []
+            mycars[0] = 'https://www.google.com/search?ei=pM7HXL-yHovfz7sPsaa-SA&q=' + cname + '+site:eastmoney.com&oq=' + cname + '+site:eastmoney.com&as_qdr=w'
+            mycars[1] = 'http://www.iwencai.com/stockpick/search?tid=stockpick&qs=sl_box_main_ths&w=' + cname
+            for (let index = 0; index < mycars.length; index++) {
+                const url = mycars[index]
+                window.open(url, '_blank', '')
+            }
+        },
+        delcode(code, bkname) {
+            this.$confirm('确认关闭？')
+            .then(_ => {
+                // 删除code
+                let url = 'http://win7.qy/vhost/custom/api_stock.php?fcname=delcode&code=' + code + '&bkname=' + bkname
+                console.log('▶', url)
+                this.$axios.get(url).then(res => {
+                    if (res.data == 'ok') {
+                        this.$message({
+                            message: '删除成功！',
+                            type: 'success',
+                        })
+                    }
+                    console.log('▶', res.data)
+                })
+            })
+            .catch(_ => {})
+        },
+        setcolor(price) {
+            if (price > 0) return '#5f94cb'
+            return '#51b791'
+        },
         newgpkName(code) {
             let ncode = code.substring(0, 1) == 6 ? 'sh' + code : 'sz' + code
             let rt = 'http://finance.sina.com.cn/realstock/company/' + ncode + '/nc.shtml'
@@ -94,7 +141,6 @@ export default {
                     }
                     if (item[0].substring(0, 1) == '3') rt /= 2
                     if (rt > 100) {
-                        console.log('▶▶▶100', rt)
                         rt = 100
                     }
 
@@ -111,18 +157,41 @@ export default {
 </script>
 
 <style>
+body {
+    line-height: 1.2;
+}
+.el-popover {
+    background-color: #b3b3d1;
+    margin-left: 5px !important;
+    min-width:auto !important;
+    line-height: 1;
+    padding:9px;
+}
+.el-button--info {
+    border-color: #909399;
+}
+
+.el-button--mini {
+    padding: 0px;
+}
+
+.el-button {
+    /* display: flex !important; */
+}
+
 .tb {
-    color:#000;
-    width: 18em;
+    color: #000;
+    width: 20em;
     border: 1px solid hsla(0, 10%, 85%, 0.864);
     border-collapse: collapse;
     margin-left: 5px;
 }
 
-td{
+td {
     border: 1px solid hsla(0, 10%, 85%, 0.864);
-    padding:3px;
+    padding: 3px;
 }
+
 .el-table__body-wrapper::-webkit-scrollbar {
     /*width: 0;宽度为0隐藏 滚动条去除 */
     width: 0px;
@@ -149,4 +218,16 @@ td{
 .el-table .el-table__body td {
     color: #000;
 }
+
+.el-progress-bar__inner {
+    border-radius: 0px !important;
+}
+
+.el-progress-bar__outer {
+    border-radius: 0px;
+}
+
+/* .el-progress-bar .el-progress-bar__inner .el-progress-bar__outer {
+    border-radius: 0px !important;
+} */
 </style>
