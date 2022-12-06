@@ -1,30 +1,35 @@
 <template>
-<div>
-    <table class="tb">
-        <tr>
-            <td colspan="5">{{newBkName}}</td>
-        </tr>
-        <tr v-for="(tr,index) in baojia" :key="index">
-            <td>
-                <a :href="newgpkName(tr[0])" target="_blank">{{tr[1]}}</a>
-            </td>
+    <div>
+        <table class="tb">
+            <tr>
+                <td colspan="5">{{newBkName}}</td>
+            </tr>
+            <tr v-for="(tr,index) in baojia" :key="index">
                 <td>
-                <el-popover placement="right" trigger="hover">
-                    <el-button size="mini" @click="lookup(tr[1])" type="info" icon="el-icon-message"></el-button>
-                    <el-button size="mini" @click="delcode(tr[0],bkname)" type="danger" icon="el-icon-delete"></el-button>
-                    <el-button size="mini" @click="viewHistory" type="danger" icon="el-icon-share"></el-button>
-                    <el-button slot="reference" size="mini" type="info" icon="el-icon-d-arrow-right"></el-button>
-                </el-popover>
-            </td>
-            <td>{{setclomValue(2,tr[2])}}</td>
-            <td style="width: 4em;">
-                <el-progress :color="setcolor(tr[3]) " :text-inside="true" :stroke-width="10" :percentage="setclomValue(4,tr)"></el-progress>
-            </td>
-            <td>{{setclomValue(3,tr[3])}}</td>
-        </tr>
-    </table>
-</div>
-</template>
+                    <sapn v-if="setcolor2(tr[3])">
+                        <a :href="newgpkName(tr[0])" target="_blank"><span style="color:red">{{tr[1]}}</span></a>
+                    </sapn>
+                    <sapn v-else>
+                        <a :href="newgpkName(tr[0])" target="_blank">{{tr[1]}}</a>
+                    </sapn>
+                </td>
+                    <td>
+                    <el-popover placement="right" trigger="hover">
+                        <el-button size="mini" @click="lookup(tr[1])" type="info" icon="el-icon-message"></el-button>
+                        <el-button size="mini" @click="delcode(tr[0],bkname)" type="danger" icon="el-icon-delete"></el-button>
+                        <el-button size="mini" @click="viewHistory" type="danger" icon="el-icon-share"></el-button>
+                        <el-button slot="reference" size="mini" type="info" icon="el-icon-d-arrow-right"></el-button>
+                    </el-popover>
+                </td>
+                <td>{{setclomValue(2,tr[2])}}</td>
+                <td style="width: 4em;">
+                    <el-progress :color="setcolor(tr[3]) " :text-inside="true" :stroke-width="10" :percentage="setclomValue(4,tr)"></el-progress>
+                </td>
+                <td>{{setclomValue(3,tr[3])}}</td>
+            </tr>
+        </table>
+    </div>
+    </template>
 
 <script>
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -43,7 +48,6 @@ export default {
             // `this` 指向 vm 实例
             return this.$props.bk.replace('bkzxg_', '')
         },
-
     },
     mounted() {
         this.getUserData()
@@ -84,9 +88,17 @@ export default {
             })
             .catch(_ => {})
         },
+        // 涨跌分颜色
         setcolor(price) {
             if (price > 0) return '#5f94cb'
             return '#51b791'
+        },
+        // 涨幅大于3红色显示
+        setcolor2(price) {
+            if (price > 3) {
+                return true
+            }
+            return false
         },
         newgpkName(code) {
             let ncode = code.substring(0, 1) == 6 ? 'sh' + code : 'sz' + code
@@ -156,78 +168,78 @@ export default {
 }
 </script>
 
-<style>
-body {
-    line-height: 1.2;
-}
-.el-popover {
-    background-color: #b3b3d1;
-    margin-left: 5px !important;
-    min-width:auto !important;
-    line-height: 1;
-    padding:9px;
-}
-.el-button--info {
-    border-color: #909399;
-}
+    <style>
+    body {
+        line-height: 1.2;
+    }
+    .el-popover {
+        background-color: #b3b3d1;
+        margin-left: 5px !important;
+        min-width:auto !important;
+        line-height: 1;
+        padding:9px;
+    }
+    .el-button--info {
+        border-color: #909399;
+    }
 
-.el-button--mini {
-    padding: 0px;
-}
+    .el-button--mini {
+        padding: 0px;
+    }
 
-.el-button {
-    /* display: flex !important; */
-}
+    .el-button {
+        /* display: flex !important; */
+    }
 
-.tb {
-    color: #000;
-    width: 20em;
-    border: 1px solid hsla(0, 10%, 85%, 0.864);
-    border-collapse: collapse;
-    margin-left: 5px;
-}
+    .tb {
+        color: #000;
+        width: 20em;
+        border: 1px solid hsla(0, 10%, 85%, 0.864);
+        border-collapse: collapse;
+        margin-left: 5px;
+    }
 
-td {
-    border: 1px solid hsla(0, 10%, 85%, 0.864);
-    padding: 3px;
-}
+    td {
+        border: 1px solid hsla(0, 10%, 85%, 0.864);
+        padding: 3px;
+    }
 
-.el-table__body-wrapper::-webkit-scrollbar {
-    /*width: 0;宽度为0隐藏 滚动条去除 */
-    width: 0px;
-    display: none;
-}
+    .el-table__body-wrapper::-webkit-scrollbar {
+        /*width: 0;宽度为0隐藏 滚动条去除 */
+        width: 0px;
+        display: none;
+    }
 
-.el-table thead.is-group th.el-table__cell {
-    background: #F5F7FA;
+    .el-table thead.is-group th.el-table__cell {
+        background: #F5F7FA;
 
-    /* border: 2px solid; */
-    padding: 0px;
-    color: #000;
-}
+        /* border: 2px solid; */
+        padding: 0px;
+        color: #000;
+    }
 
-.el-table .cell {
-    padding-left: 2px !important;
-    padding-right: 2px !important;
-}
+    .el-table .cell {
+        padding-left: 2px !important;
+        padding-right: 2px !important;
+    }
 
-.el-table .el-table__body tr:hover td {
-    color: red;
-}
+    .el-table .el-table__body tr:hover td {
+        color: red;
+    }
 
-.el-table .el-table__body td {
-    color: #000;
-}
+    .el-table .el-table__body td {
+        color: #000;
+    }
 
-.el-progress-bar__inner {
-    border-radius: 0px !important;
-}
+    .el-progress-bar__inner {
+        border-radius: 0px !important;
+    }
 
-.el-progress-bar__outer {
-    border-radius: 0px;
-}
+    .el-progress-bar__outer {
+        border-radius: 0px;
+    }
 
-/* .el-progress-bar .el-progress-bar__inner .el-progress-bar__outer {
-    border-radius: 0px !important;
-} */
-</style>
+    /* .el-progress-bar .el-progress-bar__inner .el-progress-bar__outer {
+        border-radius: 0px !important;
+    } */
+    </style>
