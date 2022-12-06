@@ -1,30 +1,23 @@
 <template>
-<div>
-    <el-container>
-        <div>
-            <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
-                <el-radio-button :label="false">展开</el-radio-button>
-                <el-radio-button :label="true">收起</el-radio-button>
-            </el-radio-group>
-            <el-menu router="true" default-active="1-4-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
-                <el-submenu index="1">
+    <div>
+        <!-- 参考 https://cloud.tencent.com/developer/article/1765666 -->
+        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
+            <template v-for="item in NavigateItem">
+                <el-submenu v-if="item.items.length" :index="item.key" :key="item.key">
                     <template slot="title">
-                        <i class="el-icon-location"></i>
-                        <span slot="title">导航一</span>
+                        {{ item.title }}
                     </template>
-                    <el-menu-item-group>
-                        <span slot="title">分组一</span>
-                        <el-menu-item index="1-1" :route="{name:'rt_bksele'}">选项1</el-menu-item>
-                        <el-menu-item index="1-2" :route="{name:'rt_tbs'}">选项2</el-menu-item>
-                    </el-menu-item-group>
+                    <el-menu-item v-for="(items, key) in item.items" :key="key" :index="items.key">
+                        {{ items.title }}
+                    </el-menu-item>
                 </el-submenu>
-            </el-menu>
-        </div>
-        <el-container>
-            <router-view />
-        </el-container>
-    </el-container>
-</div>
+                <el-menu-item v-else :index="item.key" :key="item.key">
+                    {{ item.title }}
+                </el-menu-item>
+            </template>
+        </el-menu>
+        <router-view />
+    </div>
 </template>
 
 <script>
@@ -32,6 +25,65 @@ export default {
     data() {
         return {
             isCollapse: true,
+            NavigateItem: [
+                {
+                    title: '首页',
+                    key: '1',
+                    path: '',
+                    items: [],
+                },
+                {
+                    title: '找人才',
+                    key: '2',
+                    path: '',
+                    items: [
+                        {
+                            title: 'aaa2',
+                            key: '2-1',
+                            path: 'aaa2',
+                        },
+                        {
+                            title: '选项2',
+                            key: '2-2',
+                            path: '',
+                        },
+                    ],
+                },
+                {
+                    title: '找资金',
+                    key: '3',
+                    path: '',
+                    items: [
+                        {
+                            title: '选项1',
+                            key: '3-1',
+                            path: '',
+                        },
+                        {
+                            title: '选项2',
+                            key: '3-2',
+                            path: '',
+                        },
+                    ],
+                },
+                {
+                    title: '提身价',
+                    key: '4',
+                    path: '',
+                    items: [
+                        {
+                            title: '选项1',
+                            key: '4-1',
+                            path: '',
+                        },
+                        {
+                            title: '选项2',
+                            key: '4-2',
+                            path: '',
+                        },
+                    ],
+                },
+            ],
         }
     },
     methods: {
@@ -41,7 +93,6 @@ export default {
         handleClose(key, keyPath) {
             console.log(key, keyPath)
         },
-
     },
 }
 </script>
@@ -54,21 +105,21 @@ export default {
 
 .el-header,
 .el-footer {
-    background-color: #B3C0D1;
+    background-color: #b3c0d1;
     color: #333;
     text-align: center;
     line-height: 60px;
 }
 
 .el-aside {
-    background-color: #D3DCE6;
+    background-color: #d3dce6;
     color: #333;
     text-align: center;
     line-height: 200px;
 }
 
 .el-main {
-    background-color: #E9EEF3;
+    background-color: #e9eef3;
     color: #333;
     text-align: center;
     line-height: 160px;
