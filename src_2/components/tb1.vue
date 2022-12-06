@@ -7,10 +7,10 @@
             <tr v-for="(tr,index) in baojia" :key="index">
                 <td>
                     <sapn v-if="setcolor2(tr[3])">
-                        <a :href="newgpkName(tr[0])" target="_blank"><span style="color:red">{{tr[1]}}</span></a>
+                        <a :href="newgpkName(tr[0],newBkName)" target="_blank"><span style="color:red">{{tr[1]}}</span></a>
                     </sapn>
                     <sapn v-else>
-                        <a :href="newgpkName(tr[0])" target="_blank">{{tr[1]}}</a>
+                        <a :href="newgpkName(tr[0],newBkName)" target="_blank">{{tr[1]}}</a>
                     </sapn>
                 </td>
                     <td>
@@ -100,9 +100,12 @@ export default {
             }
             return false
         },
-        newgpkName(code) {
+        newgpkName(code, bkname) {
             let ncode = code.substring(0, 1) == 6 ? 'sh' + code : 'sz' + code
             let rt = 'http://finance.sina.com.cn/realstock/company/' + ncode + '/nc.shtml'
+            if (bkname == 'ETF') {
+                rt = 'https://finance.sina.com.cn/fund/quotes/' + code + '/bc.shtml'
+            }
             return rt
         },
         handerMethod({ rowIndex }) {
