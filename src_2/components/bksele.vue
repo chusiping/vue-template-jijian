@@ -13,6 +13,7 @@
         </el-option>
     </el-select>
     <el-button type="primary" @click="getCodes">编辑</el-button>
+    <el-button type="primary" @click="sycBK">同步东方自选过来</el-button>
     <el-dialog title="编辑内容" :visible.sync="dialogVisible" width="60%" :before-close="handle2Close">
         <el-tag :key="tag" class="tagmagin"  v-show="!manyMode"  v-for="tag in dynamicTags" closable :disable-transitions="false" @close="handleClose(tag)">{{tag}}</el-tag>
         <el-input v-show="!manyMode" class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm">
@@ -93,6 +94,32 @@ export default {
                 }
             })
         },
+        // 从同方财富同步自选股列表
+        sycBK() {
+            let url = 'http://121.4.43.207:3000/myStockExist'
+            this.$axios.get(url).then(res => res.data).then(res => {
+                console.log('sycBK >>' + res)
+                let ck = /^\d{6}(,\d{6})*$/.test(res)
+                if (ck == false) {
+                    this.$message('数组格式错误！')
+                    return
+                }
+                this.$confirm('确认同步？')
+                .then(_ => {
+                    let url2 = 'http://win7.qy/vhost/custom/api_stock.php?fcname=set_bkzxg&code=' + res + '&bkname=自选'
+                    console.log(url2)
+                    this.$axios.get(url2).then(res => {
+                        if (res.data == 'ok') {
+                            this.$message({
+                                message: '添加成功！',
+                                type: 'success',
+                            })
+                        }
+                    })
+                })
+                .catch(_ => {})
+            })
+        },
         // 板块名称列表
         getDate() {
             this.$axios.get('http://win7.qy/vhost/custom/api_stock.php?fcname=get_bk2').then(res => {
@@ -102,6 +129,7 @@ export default {
                 // =>实现块状排列，可点击删除https://element.eleme.cn/#/zh-CN/component/tag
             })
         },
+        // 更新各个板块里的数据列表
         commitData() {
             let rtcodes = this.dynamicTags.join(',') //= > 校验子串是否合规
             if (this.manyMode == true) { rtcodes = this.textarea1 }

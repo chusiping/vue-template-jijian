@@ -6,12 +6,12 @@
             </tr>
             <tr v-for="(tr,index) in baojia" :key="index">
                 <td>
-                    <sapn v-if="setcolor2(tr[3])">
+                    <span v-if="setcolor2(tr[3])">
                         <a :href="newgpkName(tr[0],newBkName)" target="_blank"><span style="color:red">{{tr[1]}}</span></a>
-                    </sapn>
-                    <sapn v-else>
+                    </span>
+                    <span v-else>
                         <a :href="newgpkName(tr[0],newBkName)" target="_blank">{{tr[1]}}</a>
-                    </sapn>
+                    </span>
                 </td>
                     <td>
                     <el-popover placement="right" trigger="hover">
@@ -114,6 +114,7 @@ export default {
                 return { display: 'none' }
             }
         },
+        // 获取每个板块的实时价格
         getUserData() {
             this.bkname = this.$props.bk == undefined ? 'bkzxg_ETF' : this.$props.bk
             // console.log('@this.bkname=', this.bkname)
