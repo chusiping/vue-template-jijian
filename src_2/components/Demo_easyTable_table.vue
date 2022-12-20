@@ -3,24 +3,24 @@
         <ve-table
         :rowStyleOption="rowStyleOption"
         :editOption="editOption"
-    :checkbox-option="checkboxOption"
-    :expand-option="expandOption"
-    row-key-field-name="ID"
-    :fixed-header=true
-    :max-height="500"
-    style="width:80%"
-    :columns="columns"
-    :table-data="tableData" />
-    <div class="table-pagination">
-            <ve-pagination
-                :total="totalCount"
-                :page-index="pageIndex"
-                :page-size="pageSize"
-                @on-page-number-change="pageNumberChange"
-                @on-page-size-change="pageSizeChange"
-            />
+        :checkbox-option="checkboxOption"
+        :expand-option="expandOption"
+        row-key-field-name="ID"
+        :fixed-header=true
+        :max-height="500"
+        style="width:80%"
+        :columns="columns"
+        :table-data="tableData" />
+        <div class="table-pagination">
+                <ve-pagination
+                    :total="totalCount"
+                    :page-index="pageIndex"
+                    :page-size="pageSize"
+                    @on-page-number-change="pageNumberChange"
+                    @on-page-size-change="pageSizeChange"
+                />
+            </div>
         </div>
-    </div>
     </template>
 <script>
 let DB_DATA = []
@@ -33,9 +33,7 @@ export default {
                     console.log('行::', row)
                     console.log('列::', column)
                     console.log('被改的值::', changeValue)
-
                     console.log('---')
-
                     if (column.field === 'number' && !/^\d+$/.test(changeValue)) {
                         alert('please enter a number')
                         return false
@@ -54,7 +52,7 @@ export default {
                 hoverHighlight: false,
             },
             pageIndex: 1,
-            pageSize: 13,
+            pageSize: 5,
             expandOption: {
                 expandable: ({ row, column, rowIndex }) => {
                     if (row.ID === 9001) {
@@ -67,13 +65,14 @@ export default {
                 ),
             },
             checkboxOption: {
-                // row select change event
+                // 点击每行的checkbox
                 selectedRowChange: ({ row, isSelected, selectedRowKeys }) => {
                     console.log(row, isSelected, selectedRowKeys)
                 },
-                // selected all change event
+                // 点击全部的checkbox
                 selectedAllChange: ({ isSelected, selectedRowKeys }) => {
-                    console.log(isSelected, selectedRowKeys)
+                    console.log('全选点击状态：' + isSelected)
+                    console.log('选中的行号：' + selectedRowKeys)
                 },
             },
             columns: [
@@ -84,6 +83,24 @@ export default {
                 { edit: true, field: 'date', key: 'b', title: 'Date', align: 'left' },
                 { edit: true, field: 'hobby', key: 'c', title: 'Hobby', align: 'right' },
                 { edit: true, field: 'address', key: 'd', title: 'Address', width: '40%' },
+                {
+                    field: '',
+                    key: 'e',
+                    title: 'Action',
+                    width: '',
+                    center: 'left',
+                    renderBodyCell: ({ row, column, rowIndex }, h) => (
+                        <span>
+                            <button class="button-demo" on-click={() => this.editRow(row)}>
+                                        修改
+                            </button>
+                                    &nbsp;
+                            <button class="button-demo" on-click={() => this.deleteRow(row)}>
+                                        删除
+                            </button>
+                        </span>
+                    ),
+                },
             ],
         }
     },
@@ -91,7 +108,6 @@ export default {
         // table data
         tableData() {
             const { pageIndex, pageSize } = this
-
             return DB_DATA.slice((pageIndex - 1) * pageSize, pageIndex * pageSize)
         },
         // total count
@@ -109,6 +125,12 @@ export default {
         // this.show() //loading-container 显示
     },
     methods: {
+        editRow(row) {
+            console.log('点击了编辑按键 行是：' + JSON.stringify(row))
+        },
+        deleteRow(row) {
+            console.log('删除的行是：' + JSON.stringify(row))
+        },
         show() {
             this.loadingInstance.show()
         },
