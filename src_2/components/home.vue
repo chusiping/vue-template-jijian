@@ -1,14 +1,16 @@
 <template>
     <div>
         <!-- 参考 https://cloud.tencent.com/developer/article/1765666 -->
+        <!-- https://juejin.cn/post/6998720826962886693 -->
+        <!-- https://segmentfault.com/a/1190000018727683 -->
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
-            <template v-for="item in NavigateItem">
+            <template v-for="item in MemuItem">
                 <el-submenu v-if="item.items.length" :index="item.key" :key="item.key">
                     <template slot="title">
                         {{ item.title }}
                     </template>
                     <el-menu-item v-for="(items, key) in item.items" :key="key" :index="items.key">
-                        {{ items.title }}
+                        <router-link :to="items.path">{{ items.title }}</router-link>
                     </el-menu-item>
                 </el-submenu>
                 <el-menu-item v-else :index="item.key" :key="item.key">
@@ -24,8 +26,9 @@
 export default {
     data() {
         return {
+            activeIndex: '',
             isCollapse: true,
-            NavigateItem: [
+            MemuItem: [
                 {
                     title: '首页',
                     key: '1',
@@ -33,53 +36,36 @@ export default {
                     items: [],
                 },
                 {
-                    title: '找人才',
+                    title: '股票',
                     key: '2',
                     path: '',
                     items: [
                         {
-                            title: 'aaa2',
+                            title: '报价',
                             key: '2-1',
                             path: 'aaa2',
                         },
                         {
-                            title: '选项2',
+                            title: '登录',
                             key: '2-2',
-                            path: '',
+                            path: 'login',
                         },
                     ],
                 },
                 {
-                    title: '找资金',
+                    title: 'Demo',
                     key: '3',
                     path: '',
                     items: [
                         {
-                            title: '选项1',
+                            title: 'easyTable',
                             key: '3-1',
-                            path: '',
+                            path: 'easyTable',
                         },
                         {
-                            title: '选项2',
+                            title: 'formaking',
                             key: '3-2',
-                            path: '',
-                        },
-                    ],
-                },
-                {
-                    title: '提身价',
-                    key: '4',
-                    path: '',
-                    items: [
-                        {
-                            title: '选项1',
-                            key: '4-1',
-                            path: '',
-                        },
-                        {
-                            title: '选项2',
-                            key: '4-2',
-                            path: '',
+                            path: 'formaking',
                         },
                     ],
                 },

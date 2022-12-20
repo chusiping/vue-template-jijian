@@ -13,7 +13,7 @@ import 'view-design/dist/styles/iview.css'
 // import autoForm from './components/formMakingForVue.vue'
 
 import Demo_easyTable_table from './components/Demo_easyTable_table.vue'
-// import App from './App'
+import App from './App'
 import publicFun from './publicFunc'
 import router from './router'
 
@@ -38,5 +38,5 @@ Vue.prototype.$axios = axios
 new Vue({
     el: '#app',
     router,
-    render: h => h(Demo_easyTable_table),
+    render: h => h(App),
 })
