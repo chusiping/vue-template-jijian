@@ -1,15 +1,15 @@
 <template>
     <div>
         <ve-table
+        :rowStyleOption="rowStyleOption"
+        :editOption="editOption"
     :checkbox-option="checkboxOption"
     :expand-option="expandOption"
     row-key-field-name="ID"
-    :editOption="editOption"
-    fixed-header="true"
+    :fixed-header=true
     :max-height="500"
     style="width:80%"
     :columns="columns"
-    :rowStyleOption="rowStyleOption"
     :table-data="tableData" />
     <div class="table-pagination">
             <ve-pagination
@@ -27,6 +27,32 @@ let DB_DATA = []
 export default {
     data() {
         return {
+            editOption: {
+                beforeCellValueChange: ({ row, column, changeValue }) => {
+                    console.log('网格修改前存值：')
+                    console.log('行::', row)
+                    console.log('列::', column)
+                    console.log('被改的值::', changeValue)
+
+                    console.log('---')
+
+                    if (column.field === 'number' && !/^\d+$/.test(changeValue)) {
+                        alert('please enter a number')
+                        return false
+                    }
+                },
+                afterCellValueChange: ({ row, column, changeValue }) => {
+                    console.log('已修改值：')
+                    console.log('行::', row)
+                    console.log('列::', column)
+                    console.log('最终的值::', changeValue)
+                    console.log('---')
+                },
+            },
+            rowStyleOption: {
+                clickHighlight: false,
+                hoverHighlight: false,
+            },
             pageIndex: 1,
             pageSize: 13,
             expandOption: {
@@ -54,10 +80,10 @@ export default {
                 { field: '', key: 'y', type: 'expand', title: '', width: 50, align: 'center' },
                 { field: '', key: 'z', type: 'checkbox', title: '', width: 50, align: 'center' },
                 { field: 'ID', key: 'w', type: 'ID', title: 'ID', align: 'center' },
-                { field: 'name', key: 'a', title: 'Name', align: 'center', width: '40%' },
-                { field: 'date', key: 'b', title: 'Date', align: 'left' },
-                { field: 'hobby', key: 'c', title: 'Hobby', align: 'right' },
-                { field: 'address', key: 'd', title: 'Address', width: '40%' },
+                { edit: true, field: 'name', key: 'a', title: 'Name', align: 'center', width: '40%' },
+                { edit: true, field: 'date', key: 'b', title: 'Date', align: 'left' },
+                { edit: true, field: 'hobby', key: 'c', title: 'Hobby', align: 'right' },
+                { edit: true, field: 'address', key: 'd', title: 'Address', width: '40%' },
             ],
         }
     },
@@ -65,6 +91,7 @@ export default {
         // table data
         tableData() {
             const { pageIndex, pageSize } = this
+
             return DB_DATA.slice((pageIndex - 1) * pageSize, pageIndex * pageSize)
         },
         // total count
@@ -72,7 +99,22 @@ export default {
             return DB_DATA.length
         },
     },
+    mounted() {
+        this.loadingInstance = this.$veLoading({
+            target: document.querySelector('#loading-container'),
+            // 等同于
+            // target:"#loading-container"
+            name: 'wave',
+        })
+        // this.show() //loading-container 显示
+    },
     methods: {
+        show() {
+            this.loadingInstance.show()
+        },
+        close() {
+            this.loadingInstance.close()
+        },
         // page number change
         pageNumberChange(pageIndex) {
             this.pageIndex = pageIndex
