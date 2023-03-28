@@ -74,7 +74,7 @@ export default {
             this.$confirm('确认关闭？')
             .then(_ => {
                 // 删除code
-                let url = 'http://win7.qy/vhost/custom/api_stock.php?fcname=delcode&code=' + code + '&bkname=' + bkname
+                let url = this.host() + '?fcname=delcode&code=' + code + '&bkname=' + bkname
                 console.log('▶', url)
                 this.$axios.get(url).then(res => {
                     if (res.data == 'ok') {
@@ -118,7 +118,7 @@ export default {
         getUserData() {
             this.bkname = this.$props.bk == undefined ? 'bkzxg_ETF' : this.$props.bk
             // console.log('@this.bkname=', this.bkname)
-            let url = 'http://win7.qy/vhost/custom/api_stock.php?fcname=get_bk2&code=' + this.bkname
+            let url = this.host() + '?fcname=get_bk2&code=' + this.bkname
             this.$axios.get(url).then(res => {
                 let canshu = this.code2Sina(res.data[0])
                 let postData_bak = { P_code: canshu }
@@ -131,7 +131,7 @@ export default {
                 method: 'POST',
                 headers: { 'content-type': 'application/x-www-form-urlencoded' },
                 data: qs.stringify(obj),
-                url: 'http://win7.qy/vhost/custom/api_stock.php?fcname=exec_getSinaPrice',
+                url: this.host() + '?fcname=exec_getSinaPrice',
             }
             this.$axios(para).then(res => {
                 // this.baojia = res.data

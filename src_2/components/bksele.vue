@@ -82,7 +82,7 @@ export default {
             if (this.dropList == '') return
             this.dialogVisible = true
             // console.log('▶', this.dropList)
-            let url = 'http://win7.qy/vhost/custom/api_stock.php?fcname=get_bk2&code=' + this.dropList
+            let url = this.host() + '?fcname=get_bk2&code=' + this.dropList
             this.$axios.get(url).then(res => {
                 let rt = res.data[0].content
                 this.textarea1 = rt
@@ -106,7 +106,7 @@ export default {
                 }
                 this.$confirm('确认同步？')
                 .then(_ => {
-                    let url2 = 'http://win7.qy/vhost/custom/api_stock.php?fcname=set_bkzxg&code=' + res + '&bkname=自选'
+                    let url2 = this.host() + '?fcname=set_bkzxg&code=' + res + '&bkname=自选'
                     console.log(url2)
                     this.$axios.get(url2).then(res => {
                         if (res.data == 'ok') {
@@ -122,7 +122,7 @@ export default {
         },
         // 板块名称列表
         getDate() {
-            this.$axios.get('http://win7.qy/vhost/custom/api_stock.php?fcname=get_bk2').then(res => {
+            this.$axios.get(this.host() + '?fcname=get_bk2').then(res => {
                 this.bk板块列表 = res.data
                 // console.log(res.data)
                 this.textarea1 = res.data[0].content
@@ -142,7 +142,7 @@ export default {
             this.dialogVisible = false
             // console.log('▶', rtcodes) // => 修改后向接口提交，然后刷新子控件
             let bkname = this.dropList.replace('bkzxg_', '')
-            let url = 'http://win7.qy/vhost/custom/api_stock.php?fcname=set_bkzxg&code=' + rtcodes + '&bkname=' + bkname
+            let url = this.host() + '?fcname=set_bkzxg&code=' + rtcodes + '&bkname=' + bkname
             console.log(rtcodes)
             this.$axios.get(url).then(res => {
                 if (res.data == 'ok') {

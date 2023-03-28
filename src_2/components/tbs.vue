@@ -24,7 +24,7 @@ export default {
     },
     methods: {
         getData() {
-            let url = 'http://win7.qy/vhost/custom/api_stock.php?fcname=get_bk2'
+            let url = this.host() + '?fcname=get_bk2'
             this.$axios.get(url).then(res => {
                 this.items = res.data
             })
