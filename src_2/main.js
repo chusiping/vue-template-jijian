@@ -9,7 +9,7 @@ import ElementUI from 'element-ui' // element-ui的全部组件
 import 'element-ui/lib/theme-chalk/index.css'
 import ViewUI from 'view-design'
 import 'view-design/dist/styles/iview.css'
-// import aaa2 from './components/aaa2' // aaa2实时报价
+import aaa2 from './components/aaa2' // aaa2实时报价
 // import autoForm from './components/formMakingForVue.vue'
 
 import Demo_easyTable_table from './components/Demo_easyTable_table.vue'
@@ -38,5 +38,5 @@ Vue.prototype.$axios = axios
 new Vue({
     el: '#app',
     router,
-    render: h => h(App),
+    render: h => h(aaa2), // 通过接切(aaa2)来显示默认的页面
 })

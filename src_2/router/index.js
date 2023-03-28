@@ -1,17 +1,50 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import aaa2 from '../components/aaa2.vue'
-import bksele from '../components/bksele.vue'
-import tbs from '../components/tbs.vue'
 import home from '../components/home.vue'
 import not404 from '../components/not404.vue'
-import App from '../App.vue'
 import login from '../components/login.vue'
 import Demo_easyTable_table from '../components/Demo_easyTable_table.vue'
 import formMakingForVue from '../components/formMakingForVue.vue'
 // 使用路由
 Vue.use(Router)
-// const ISLOGIN = true // 登录状态模拟
+const ISLOGIN = false // 登录状态模拟
+
+
+const router = new Router({
+    routes: [
+        {
+            path: '/',
+            name: 'home',
+            component: home,
+            children: [
+                {
+                    path: 'aaa2',
+                    component: aaa2,
+                },
+                {
+                    path: 'easyTable',
+                    component: Demo_easyTable_table,
+                },
+                {
+                    path: 'formaking',
+                    component: formMakingForVue,
+                },
+            ],
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: login,
+        },
+        {
+            path: '/not404',
+            name: 'not404',
+            component: not404,
+        },
+    ],
+    // mode: 'history', // 去掉浏览器中的#
+})
 // router.beforeEach((to, from, next) => { // 全局全局前置守卫
 //     // to : 将要进入的目标路由对象
 //     // from : 即将离开的目标路由对象
@@ -28,37 +61,4 @@ Vue.use(Router)
 //     }
 // })
 
-const router = new Router({
-    routes: [
-        {
-            path: '/',
-            name: 'home',
-            component: home,
-            children: [
-                {
-                    path: 'aaa2',
-                    component: aaa2,
-                },
-                {
-                    path: 'login',
-                    component: login,
-                },
-                {
-                    path: 'easyTable',
-                    component: Demo_easyTable_table,
-                },
-                {
-                    path: 'formaking',
-                    component: formMakingForVue,
-                },
-            ],
-        },
-    ],
-    // mode: 'history', // 去掉浏览器中的#
-})
-
 export default router
-
-// export default new Router({
-//     mode: 'history', // 去掉浏览器中的#
-// })
