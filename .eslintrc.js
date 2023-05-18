@@ -60,4 +60,7 @@ module.exports = {
             },
         },
     ],
+    globals:{
+        'globle_Para' :true
+    }
 }

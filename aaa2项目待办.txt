@@ -7,11 +7,17 @@
 5 easy table 延时获取数据
 
 
-已经处理记录
-    1. 
-
-
-提示：
+2023-3-28
     npm run serve
+    npm run build
     修改vue.config.js的 entry: 'src_2/main.js'控制入口文件夹
     main.js的render: h => h(aaa2) 控制入口的默认显示页面
+
+2023-5-18 	
+	增加全局配置变量 	
+	项目的public下新建static/globle_Para.js
+	接着增加 const globle_Para
+	publicFunc.js修改89行 return globle_Para.api_getStockPrice
+	.eslintrc.js 文件63行增加globals的定义
+
+

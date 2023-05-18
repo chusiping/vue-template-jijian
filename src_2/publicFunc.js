@@ -86,6 +86,7 @@ exports.install = function (Vue, options) {
         return rt
     }
     Vue.prototype.host = function () {
+        return globle_Para.api_getStockPrice
         return 'http://typecho.qy:8001/vhost/custom/api_stock_docker.php'
         // return 'http://win7.qy/vhost/custom/api_stock.php'
     }
