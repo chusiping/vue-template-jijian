@@ -96,7 +96,9 @@ export default {
         },
         // 从同方财富同步自选股列表
         sycBK() {
-            let url = 'http://121.4.43.207:3000/myStockExist'
+            // let url = 'http://121.4.43.207:3000/myStockExist'
+            let url =  globle_Para.api_getZxg;
+            console.log(url);
             this.$axios.get(url).then(res => res.data).then(res => {
                 console.log('sycBK >>' + res)
                 let ck = /^\d{6}(,\d{6})*$/.test(res)
